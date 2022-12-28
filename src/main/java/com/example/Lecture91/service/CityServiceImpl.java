@@ -37,7 +37,7 @@ public class CityServiceImpl implements CityService{
 
     @Override
     public CityDTO getCityById(Long id) {
-        CityEntity cityEntity=cityRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not delete type with id [" + id + "]not found"));
+        CityEntity cityEntity=cityRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not find COUNTRY with id [" + id + "]"));
         return modelMapper.map(cityEntity,CityDTO.class);
     }
 }

@@ -40,7 +40,7 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public CountryDTO getCountryById(Long id) {
-        CountryEntity countryEntity= countryRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not delete type with id [" + id + "]not found"));
+        CountryEntity countryEntity= countryRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not find COUNTRY with id [" + id + "]"));
         return modelMapper.map(countryEntity,CountryDTO.class);
     }
 }
