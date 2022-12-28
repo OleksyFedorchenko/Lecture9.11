@@ -2,6 +2,7 @@ package com.example.Lecture91.service;
 
 import com.example.Lecture91.dto.CityDTO;
 import com.example.Lecture91.entity.CityEntity;
+import com.example.Lecture91.exception.ResourceNotFoundException;
 import com.example.Lecture91.repository.CityRepository;
 import com.example.Lecture91.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,11 @@ public class CityServiceImpl implements CityService{
     @Override
     public void deleteCityById(Long id) {
         cityRepository.deleteById(id);
+    }
+
+    @Override
+    public CityDTO getCityById(Long id) {
+        CityEntity cityEntity=cityRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not delete type with id [" + id + "]not found"));
+        return modelMapper.map(cityEntity,CityDTO.class);
     }
 }

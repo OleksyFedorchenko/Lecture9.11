@@ -1,13 +1,15 @@
 package com.example.Lecture91.service;
 
 import com.example.Lecture91.dto.CountryDTO;
-import com.example.Lecture91.entity.CityEntity;
 import com.example.Lecture91.entity.CountryEntity;
+import com.example.Lecture91.exception.ResourceNotFoundException;
 import com.example.Lecture91.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import com.example.Lecture91.repository.CountryRepository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CountryServiceImpl implements CountryService{
 
@@ -27,11 +29,18 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public List<CountryDTO> findAllCountries() {
-        return countryRepository.findAll();
+        List<CountryEntity> countryEntities=countryRepository.findAll();
+        return modelMapper.mapAll(countryEntities, CountryDTO.class);
     }
 
     @Override
     public void deleteCountryById(Long id) {
         countryRepository.deleteById(id);
+    }
+
+    @Override
+    public CountryDTO getCountryById(Long id) {
+        CountryEntity countryEntity= countryRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not delete type with id [" + id + "]not found"));
+        return modelMapper.map(countryEntity,CountryDTO.class);
     }
 }
