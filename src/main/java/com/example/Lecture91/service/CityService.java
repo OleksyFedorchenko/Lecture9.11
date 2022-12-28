@@ -8,4 +8,6 @@ public interface CityService {
     void addCity(CityEntity cityEntity);
 
     List<CityEntity> findAllCities();
+
+    void deleteCityById(Long id);
 }

@@ -8,4 +8,6 @@ public interface CountryService {
     void addCountry(CountryEntity countryEntity);
 
     List<CountryEntity> findAllCountries();
+
+    void deleteCountryById(Long id);
 }

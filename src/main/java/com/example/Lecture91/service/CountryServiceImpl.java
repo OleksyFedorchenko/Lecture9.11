@@ -23,4 +23,9 @@ public class CountryServiceImpl implements CountryService{
     public List<CountryEntity> findAllCountries() {
         return countryRepository.findAll();
     }
+
+    @Override
+    public void deleteCountryById(Long id) {
+        countryRepository.deleteById(id);
+    }
 }

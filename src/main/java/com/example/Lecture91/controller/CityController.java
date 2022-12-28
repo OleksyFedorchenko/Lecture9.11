@@ -27,4 +27,9 @@ CityService cityService;
     public ResponseEntity<List<CityEntity>> getCities() {
         return ResponseEntity.ok(cityService.findAllCities());
     }
+    @DeleteMapping("{cityId}")
+    public ResponseEntity<?> deleteCityById(@PathVariable("cityId") Long id) {
+        cityService.deleteCityById(id);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

@@ -24,4 +24,12 @@ public class CityEntity {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private CountryEntity country;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

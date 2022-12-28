@@ -25,4 +25,9 @@ public class CountryController {
     public ResponseEntity<List<CountryEntity>> getCountries() {
         return ResponseEntity.ok(countryService.findAllCountries());
     }
+    @DeleteMapping("{countryId}")
+    public ResponseEntity<?> deleteCityById(@PathVariable("countryId") Long id) {
+        countryService.deleteCountryById(id);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

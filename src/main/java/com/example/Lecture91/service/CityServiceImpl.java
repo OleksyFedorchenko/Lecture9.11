@@ -22,4 +22,9 @@ public class CityServiceImpl implements CityService{
     public List<CityEntity> findAllCities() {
         return cityRepository.findAll();
 }
+
+    @Override
+    public void deleteCityById(Long id) {
+        cityRepository.deleteById(id);
+    }
 }
