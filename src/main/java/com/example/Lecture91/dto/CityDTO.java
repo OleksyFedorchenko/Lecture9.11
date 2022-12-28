@@ -9,12 +9,12 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
-public class CityDto {
+public class CityDTO {
     private Long id;
     @NotNull(message = "Field 'NAME' can't be null")
     @Size(min = 1, max = 60, message = "Name length should be between 1 and 60")
     private String name;
-    @NotNull(message = "Field 'NAME' can't be null")
+    @NotNull(message = "Field 'POPULATION' can't be null")
     @Size(message = "Population can't be less than 0")
     private int population;
     @NotNull(message = "Field 'CapitalOfCountry' can't be null")

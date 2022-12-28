@@ -1,5 +1,6 @@
 package com.example.Lecture91.controller;
 
+import com.example.Lecture91.dto.CityDTO;
 import com.example.Lecture91.entity.CityEntity;
 import com.example.Lecture91.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,12 @@ CityService cityService;
     }
 
     @PostMapping
-    public ResponseEntity<?> addCity(@RequestBody CityEntity cityEntity) {
-        cityService.addCity(cityEntity);
+    public ResponseEntity<?> addCity(@RequestBody CityDTO cityDTO) {
+        cityService.addCity(cityDTO);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<List<CityEntity>> getCities() {
+    public ResponseEntity<List<CityDTO>> getCities() {
         return ResponseEntity.ok(cityService.findAllCities());
     }
     @DeleteMapping("{cityId}")
