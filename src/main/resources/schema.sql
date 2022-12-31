@@ -2,16 +2,16 @@ drop table if exists city;
 drop table if exists country;
 
 create table country(
-                        id INT NOT NULL AUTO_INCREMENT,
+                        id BIGINT(20) NOT NULL AUTO_INCREMENT,
                         name VARCHAR(15),
                         PRIMARY KEY (id));
 
 create table city(
-                     id INT NOT NULL AUTO_INCREMENT,
+                     id BIGINT(20) NOT NULL AUTO_INCREMENT,
                      name VARCHAR(15) NOT NULL,
                      population INT NOT NULL,
                      capital BOOLEAN NOT NULL,
-                     country_id INT NOT NULL,
+                     country_id BIGINT(20) NOT NULL,
                      INDEX c_id(country_id),
                      PRIMARY KEY (id),
                      FOREIGN KEY (country_id)
