@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 public class CityEntity {
     @jakarta.persistence.Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 15, nullable = false)
