@@ -50,7 +50,7 @@ public class CountryServiceImpl implements CountryService{
     country.setName(countryDTO.getName());
     CountryEntity country1 = countryRepository.findByName(country.getName());
         if (country1 != null) {
-            if (!(country1.getName().equals(country.getName()))) {
+            if (country1.getName().equals(country.getName())) {
                 throw new AlreadyExistsException("Firm with name [" + country.getName() + "]already exists");
             }
         }
