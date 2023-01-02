@@ -12,4 +12,6 @@ public interface CountryService {
     void deleteCountryById(Long id);
 
     CountryDTO getCountryById(Long id);
+
+    void editCountryById(CountryDTO countryDTO);
 }
