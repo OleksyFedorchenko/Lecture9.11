@@ -54,7 +54,7 @@ public class CityController {
             System.out.println("Validation error");
             String errMsg = br.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .findFirst().get().toString();
+                    .findFirst().get();
             ErrorDTO errorDTO = new ErrorDTO(errMsg);
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
         }
