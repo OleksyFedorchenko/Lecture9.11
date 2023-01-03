@@ -2,14 +2,16 @@ package com.example.Lecture91.controller;
 
 import com.example.Lecture91.dto.CountryDTO;
 import com.example.Lecture91.dto.ErrorDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.Lecture91.service.CountryService;
 
-import javax.validation.Valid;
+
 import java.util.List;
 @RestController
 @RequestMapping("/country")
@@ -41,9 +43,12 @@ public class CountryController {
     @PutMapping("edit")
     public ResponseEntity<?> editCountry(@Valid @RequestBody CountryDTO country, BindingResult br) {
         if (br.hasErrors()) {
+            System.out.println(br);
             System.out.println("Validation error");
             String errMsg = br.getFieldErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .findFirst().get().toString();
+            System.out.println(errMsg);
             ErrorDTO errorDTO = new ErrorDTO(errMsg);
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
         }
