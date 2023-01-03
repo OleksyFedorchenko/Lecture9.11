@@ -7,6 +7,7 @@ import com.example.Lecture91.exception.ResourceNotFoundException;
 import com.example.Lecture91.repository.CityRepository;
 import com.example.Lecture91.utils.ObjectMapperUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<CityDTO> findAllCities() {
-        List<CityEntity> cityEntities = cityRepository.findAll();
+    public List<CityDTO> findAllCitiesOrderByIdAsc() {
+        List<CityEntity> cityEntities = cityRepository.findAll(Sort.by("id").ascending());
         return modelMapper.mapAll(cityEntities, CityDTO.class);
     }
 

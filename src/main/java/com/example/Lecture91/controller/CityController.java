@@ -34,7 +34,7 @@ public class CityController {
 
     @GetMapping
     public ResponseEntity<List<CityDTO>> getCities() {
-        return ResponseEntity.ok(cityService.findAllCities());
+        return ResponseEntity.ok(cityService.findAllCitiesOrderByIdAsc());
     }
 
     @DeleteMapping("{cityId}")
@@ -62,10 +62,10 @@ public class CityController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @GetMapping("{population}/{countryname}/{pagenumber}")
-    public ResponseEntity<List<CityDTO>> getCityByPopulationAndCountryName(@PathVariable("population") int population, @PathVariable("countryname") String countryName, @PathVariable("pagenumber") int pageNumber) {
+    @GetMapping("{population}/{countryname}")
+    public ResponseEntity<List<CityDTO>> getCityByPopulationAndCountryName(@PathVariable("population") int population, @PathVariable("countryname") String countryName, @RequestParam int page) {
         int pageSize = 3;
-        Pageable pageWithThreeElements = PageRequest.of(pageNumber, pageSize, Sort.by("name").ascending());
+        Pageable pageWithThreeElements = PageRequest.of(page, pageSize, Sort.by("id").ascending());
         return ResponseEntity.ok(cityService.findByPopulationAndCountryName(population, countryName, pageWithThreeElements));
     }
 }

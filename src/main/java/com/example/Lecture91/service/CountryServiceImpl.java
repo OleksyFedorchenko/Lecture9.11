@@ -5,6 +5,7 @@ import com.example.Lecture91.entity.CountryEntity;
 import com.example.Lecture91.exception.AlreadyExistsException;
 import com.example.Lecture91.exception.ResourceNotFoundException;
 import com.example.Lecture91.utils.ObjectMapperUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.example.Lecture91.repository.CountryRepository;
 
@@ -28,8 +29,8 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<CountryDTO> findAllCountries() {
-        List<CountryEntity> countryEntities = countryRepository.findAll();
+    public List<CountryDTO> findAllCountriesOrderByIdAsc() {
+        List<CountryEntity> countryEntities = countryRepository.findAll(Sort.by("id").ascending());
         return modelMapper.mapAll(countryEntities, CountryDTO.class);
     }
 

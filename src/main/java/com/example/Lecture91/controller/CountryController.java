@@ -32,7 +32,7 @@ public class CountryController {
 
     @GetMapping
     public ResponseEntity<List<CountryDTO>> getCountries() {
-        return ResponseEntity.ok(countryService.findAllCountries());
+        return ResponseEntity.ok(countryService.findAllCountriesOrderByIdAsc());
     }
 
     @DeleteMapping("{countryId}")

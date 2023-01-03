@@ -7,7 +7,7 @@ import java.util.List;
 public interface CountryService {
     void addCountry(CountryDTO countryDTO);
 
-    List<CountryDTO> findAllCountries();
+    List<CountryDTO> findAllCountriesOrderByIdAsc();
 
     void deleteCountryById(Long id);
 
