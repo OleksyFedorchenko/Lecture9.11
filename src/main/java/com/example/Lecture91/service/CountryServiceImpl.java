@@ -11,7 +11,7 @@ import com.example.Lecture91.repository.CountryRepository;
 import java.util.List;
 
 @Service
-public class CountryServiceImpl implements CountryService{
+public class CountryServiceImpl implements CountryService {
 
     CountryRepository countryRepository;
     private final ObjectMapperUtils modelMapper;
@@ -23,13 +23,13 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public void addCountry(CountryDTO countryDTO) {
-        CountryEntity country=modelMapper.map(countryDTO,CountryEntity.class);
+        CountryEntity country = modelMapper.map(countryDTO, CountryEntity.class);
         countryRepository.save(country);
     }
 
     @Override
     public List<CountryDTO> findAllCountries() {
-        List<CountryEntity> countryEntities=countryRepository.findAll();
+        List<CountryEntity> countryEntities = countryRepository.findAll();
         return modelMapper.mapAll(countryEntities, CountryDTO.class);
     }
 
@@ -40,18 +40,18 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public CountryDTO getCountryById(Long id) {
-        CountryEntity countryEntity= countryRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Could not find COUNTRY with id [" + id + "]"));
-        return modelMapper.map(countryEntity,CountryDTO.class);
+        CountryEntity countryEntity = countryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Could not find COUNTRY with id [" + id + "]"));
+        return modelMapper.map(countryEntity, CountryDTO.class);
     }
 
     @Override
     public void editCountryById(CountryDTO countryDTO) {
-    CountryEntity country = countryRepository.findById(countryDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("Could not edit this id not found"));
-    country.setName(countryDTO.getName());
-    CountryEntity country1 = countryRepository.findByName(country.getName());
+        CountryEntity country = countryRepository.findById(countryDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("Could not edit this id not found"));
+        country.setName(countryDTO.getName());
+        CountryEntity country1 = countryRepository.findByName(country.getName());
         if (country1 != null) {
             if (country1.getName().equals(country.getName())) {
-                throw new AlreadyExistsException("Firm with name [" + country.getName() + "]already exists");
+                throw new AlreadyExistsException("Country with name [" + country.getName() + "]already exists");
             }
         }
         country = modelMapper.map(countryDTO, CountryEntity.class);

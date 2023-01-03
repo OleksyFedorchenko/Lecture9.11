@@ -3,6 +3,7 @@ package com.example.Lecture91.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+
 @Data
 @Entity
 @Table(name = "country")
