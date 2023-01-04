@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -70,12 +70,12 @@ class ApplicationTests {
 
     @Test
     public void givenId_whenGetExistingCity_thenStatus200andCityReturned() throws Exception {
-        long id = createTestCity("Spain", "Madrid").getId();
+        long id = createTestCity("Hungary", "Budapest").getId();
         mockMvc.perform(
                         get("/city/{cityId}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.name").value("Madrid"));
+                .andExpect(jsonPath("$.name").value("Budapest"));
     }
 
     @Test
@@ -89,30 +89,39 @@ class ApplicationTests {
 
     @Test
     public void givenCity_whenDeleteCity_thenStatus200() throws Exception {
-        CityEntity cityEntity = createTestCity("Spain", "Madrid");
+        CityEntity cityEntity = createTestCity("Italy", "Rome");
         mockMvc.perform(
                         delete("/city/{id}", cityEntity.getId()))
                 .andExpect(status().isOk());
     }
 
-
-    //В цьому тесті зробив саме таким чином, бо в базі після першого запуску
-    // вже є країни і відповідно отримуємо список включно з цими країнами.
     @Test
-    public void givenCountries_whenGetCountries_thenStatus200() throws Exception {
-        CountryEntity countryEntity1 = new CountryEntity();
-        countryEntity1.setId(1L);
-        countryEntity1.setName("Ukraine");
-        CountryEntity countryEntity2 = new CountryEntity();
-        countryEntity2.setId(2L);
-        countryEntity2.setName("Poland");
-        CountryEntity countryEntity3 = new CountryEntity();
-        countryEntity3.setId(3L);
-        countryEntity3.setName("Germany");
+    public void givenCities_whenGetCities_thenStatus200() throws Exception {
+        List<CityEntity> listCities = cityRepository.findAll();
         mockMvc.perform(
-                        get("/country"))
+                        get("/city"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(countryEntity1, countryEntity2, countryEntity3))));
+                .andExpect(content().json(objectMapper.writeValueAsString(listCities)));
+    }
+
+    @Test
+    public void giveCity_whenUpdate_thenStatus200andUpdatedReturns() throws Exception {
+        CityEntity oldCity = createTestCity("USA", "Washington");
+        CityEntity updateCity = new CityEntity();
+        updateCity.setId(oldCity.getId());
+        updateCity.setName("Canada");
+        updateCity.setPopulation(oldCity.getPopulation());
+        updateCity.setCapitalOfCountry(false);
+        updateCity.setCountry(oldCity.getCountry());
+        mockMvc.perform(
+                        put("/city/edit")
+                                .content(objectMapper.writeValueAsString(updateCity))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(oldCity.getId()))
+                .andExpect(jsonPath("$.name").value("Canada"))
+                .andExpect(jsonPath("$.population").value(updateCity.getPopulation()))
+                .andExpect(jsonPath("$.capitalOfCountry").value(false));
     }
 
 

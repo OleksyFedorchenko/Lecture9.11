@@ -2,7 +2,9 @@ package com.example.Lecture91.controller;
 
 import com.example.Lecture91.dto.CityDTO;
 import com.example.Lecture91.dto.ErrorDTO;
+import com.example.Lecture91.entity.CityEntity;
 import com.example.Lecture91.service.CityService;
+import com.example.Lecture91.utils.ObjectMapperUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -20,10 +22,11 @@ import java.util.List;
 @RequestMapping("/city")
 public class CityController {
     CityService cityService;
-
+    ObjectMapperUtils modelMapper;
     @Autowired
-    public CityController(CityService cityService) {
+    public CityController(CityService cityService, ObjectMapperUtils modelMapper) {
         this.cityService = cityService;
+        this.modelMapper=modelMapper;
     }
 
     @PostMapping
@@ -48,8 +51,8 @@ public class CityController {
         return ResponseEntity.ok(cityService.getCityById(id));
     }
 
-    @PutMapping("edit/{cityId}")
-    public ResponseEntity<?> editCity(@PathVariable ("cityId") Long id, @Valid @RequestBody CityDTO city, BindingResult br) {
+    @PutMapping("edit")
+    public ResponseEntity<?> editCity(@Valid @RequestBody CityDTO city, BindingResult br) {
         if (br.hasErrors()) {
             System.out.println("Validation error");
             String errMsg = br.getFieldErrors().stream()
@@ -58,8 +61,8 @@ public class CityController {
             ErrorDTO errorDTO = new ErrorDTO(errMsg);
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
         }
-        cityService.editCityById(id,city);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        cityService.editCityById(city);
+        return new ResponseEntity<>(modelMapper.map(city, CityEntity.class), HttpStatus.OK);
     }
 
     @GetMapping("{population}/{countryname}")
