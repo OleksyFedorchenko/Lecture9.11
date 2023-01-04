@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
+@Data
 public class CityDTO {
     private Long id;
     @NotNull(message = "Field 'NAME' can't be null")

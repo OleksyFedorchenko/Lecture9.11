@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
+@Data
 public class CountryDTO {
     private Long id;
     @NotNull(message = "Field 'NAME' can't be null")
