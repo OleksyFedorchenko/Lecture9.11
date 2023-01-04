@@ -15,7 +15,6 @@ public class CityDTO {
     @NotBlank(message = "Field 'NAME' can't be blank")
     private String name;
     @NotNull(message = "Field 'POPULATION' can't be null")
-    @Size(message = "Population can't be less than 0")
     private int population;
     @NotNull(message = "Field 'CapitalOfCountry' can't be null")
     private boolean capitalOfCountry;

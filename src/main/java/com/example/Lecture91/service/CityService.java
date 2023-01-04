@@ -14,7 +14,7 @@ public interface CityService {
 
     CityDTO getCityById(Long id);
 
-    void editCityById(CityDTO cityDTO);
+    void editCityById(Long id,CityDTO cityDTO);
 
     List<CityDTO> findByPopulationAndCountryName(int population, String countryName, Pageable pageable);
 }

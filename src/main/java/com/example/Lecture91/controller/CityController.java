@@ -48,8 +48,8 @@ public class CityController {
         return ResponseEntity.ok(cityService.getCityById(id));
     }
 
-    @PutMapping("edit")
-    public ResponseEntity<?> editCity(@Valid @RequestBody CityDTO city, BindingResult br) {
+    @PutMapping("edit/{cityId}")
+    public ResponseEntity<?> editCity(@PathVariable ("cityId") Long id, @Valid @RequestBody CityDTO city, BindingResult br) {
         if (br.hasErrors()) {
             System.out.println("Validation error");
             String errMsg = br.getFieldErrors().stream()
@@ -58,7 +58,7 @@ public class CityController {
             ErrorDTO errorDTO = new ErrorDTO(errMsg);
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
         }
-        cityService.editCityById(city);
+        cityService.editCityById(id,city);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

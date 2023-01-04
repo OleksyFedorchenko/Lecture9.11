@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityServiceImpl implements CityService {
@@ -46,17 +47,32 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void editCityById(CityDTO cityDTO) {
-        CityEntity city = cityRepository.findById(cityDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("Could not edit this id not found"));
-        city.setName(cityDTO.getName());
-        CityEntity city1 = cityRepository.findByName(city.getName());
-        if (city1 != null) {
-            if (city1.getName().equals(city.getName())) {
-                throw new AlreadyExistsException("City with name [" + city.getName() + "]already exists");
+    public void editCityById(Long id,CityDTO cityDTO) {
+        Optional<CityEntity> c =cityRepository.findById(id);
+        if (!c.isPresent())
+            throw new ResourceNotFoundException("Could not edit this id not found");
+        CityEntity oldCity = c.get();
+        oldCity.setName(cityDTO.getName());
+        CityEntity tempCity = cityRepository.findByName(oldCity.getName());
+        if (tempCity != null) {
+            if (tempCity.getName().equals(oldCity.getName())) {
+                throw new AlreadyExistsException("City with name [" + oldCity.getName() + "]already exists");
             }
         }
-        city = modelMapper.map(cityDTO, CityEntity.class);
-        cityRepository.save(city);
+        oldCity = modelMapper.map(cityDTO, CityEntity.class);
+        cityRepository.save(oldCity);
+
+
+//        CityEntity city = cityRepository.findById(cityDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("Could not edit this id not found"));
+//        city.setName(cityDTO.getName());
+//        CityEntity city1 = cityRepository.findByName(city.getName());
+//        if (city1 != null) {
+//            if (city1.getName().equals(city.getName())) {
+//                throw new AlreadyExistsException("City with name [" + city.getName() + "]already exists");
+//            }
+//        }
+//        city = modelMapper.map(cityDTO, CityEntity.class);
+//        cityRepository.save(city);
     }
 
     @Override
