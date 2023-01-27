@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/math/examples")
 public class TaskController {
     TaskService taskService;
     @Autowired
     public TaskController(TaskService taskService){
         this.taskService=taskService;
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<String>> getTasks(@RequestParam int count) {
-        Pageable pageWithCountElements = PageRequest.of(0, count, Sort.by("id").ascending());
-        return ResponseEntity.ok(taskService.findAllByLimit(pageWithCountElements));
+        return ResponseEntity.ok(taskService.findAllRandomTasksByCount(count));
     }
 }
