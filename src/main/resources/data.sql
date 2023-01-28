@@ -1,3 +1,18 @@
+INSERT INTO task(name) VALUE ('5 + 3');
+INSERT INTO task(name) VALUE ('5 - 3');
+INSERT INTO task(name) VALUE ('6 / 2');
+INSERT INTO task(name) VALUE ('8 * 4');
+INSERT INTO task(name) VALUE ('12 + 8');
+INSERT INTO task(name) VALUE ('45 + 3');
+INSERT INTO task(name) VALUE ('55 - 32');
+INSERT INTO task(name) VALUE ('68 / 2');
+INSERT INTO task(name) VALUE ('84 * 1');
+INSERT INTO task(name) VALUE ('12 + 9');
+INSERT INTO task(name) VALUE ('52 + 3');
+INSERT INTO task(name) VALUE ('51 - 3');
+INSERT INTO task(name) VALUE ('66 / 6');
+INSERT INTO task(name) VALUE ('8 * 9');
+INSERT INTO task(name) VALUE ('77 + 8');
 INSERT INTO country(name) VALUE ('Ukraine');
 INSERT INTO country(name) VALUE ('Poland');
 INSERT INTO country(name) VALUE ('Germany');

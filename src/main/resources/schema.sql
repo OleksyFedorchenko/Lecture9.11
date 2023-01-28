@@ -1,6 +1,12 @@
 DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS country;
+DROP TABLE IF EXISTS task;
 
+CREATE TABLE task(
+                     id BIGINT(20) NOT NULL AUTO_INCREMENT,
+                     name VARCHAR(15),
+                     UNIQUE (name),
+                     PRIMARY KEY (id));
 CREATE TABLE country(
                         id BIGINT(20) NOT NULL AUTO_INCREMENT,
                         name VARCHAR(15),
