@@ -16,8 +16,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<String> findAllRandomTasksByCount(int count) {
-//        return entityManager.createQuery("SELECT t.name FROM TaskEntity t ORDER BY RAND()", String.class)
-//                .setMaxResults(limit).getResultList();
         return taskRepository.findAllRandomTasksByCount(count);
     }
 
