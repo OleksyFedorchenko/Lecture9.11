@@ -24,28 +24,33 @@ public class CountryController {
         this.countryService = countryService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<?> addCountry(@RequestBody CountryDTO countryDTO) {
         countryService.addCountry(countryDTO);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<CountryDTO>> getCountries() {
         return ResponseEntity.ok(countryService.findAllCountriesOrderByIdAsc());
     }
 
-    @DeleteMapping("{countryId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/delete/{countryId}")
     public ResponseEntity<?> deleteCityById(@PathVariable("countryId") Long id) {
         countryService.deleteCountryById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @GetMapping("{countryId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/{countryId}")
     public ResponseEntity<CountryDTO> getCountryById(@PathVariable("countryId") Long id) {
         return ResponseEntity.ok(countryService.getCountryById(id));
     }
 
+@CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("edit")
     public ResponseEntity<?> editCountry(@Valid @RequestBody CountryDTO country, BindingResult br) {
         if (br.hasErrors()) {

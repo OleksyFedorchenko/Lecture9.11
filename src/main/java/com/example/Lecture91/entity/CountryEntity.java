@@ -15,4 +15,10 @@ public class CountryEntity {
 
     @Column(length = 15, unique = true, nullable = false)
     private String name;
+
+    @Column(length = 50, nullable = false)
+    private String continent;
+
+    @Column(nullable = false)
+    private int area;
 }

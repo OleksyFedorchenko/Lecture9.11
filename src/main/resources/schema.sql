@@ -10,6 +10,8 @@ CREATE TABLE task(
 CREATE TABLE country(
                         id BIGINT(20) NOT NULL AUTO_INCREMENT,
                         name VARCHAR(15),
+                        continent VARCHAR(50),
+                        area INT NOT NULL,
                         UNIQUE (name),
                         PRIMARY KEY (id));
 

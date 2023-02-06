@@ -47,15 +47,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public void editCountryById(CountryDTO countryDTO) {
-        CountryEntity country = countryRepository.findById(countryDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("Could not edit this id not found"));
-        country.setName(countryDTO.getName());
-        CountryEntity country1 = countryRepository.findByName(country.getName());
-        if (country1 != null) {
-            if (country1.getName().equals(country.getName())) {
-                throw new AlreadyExistsException("Country with name [" + country.getName() + "]already exists");
-            }
-        }
-        country = modelMapper.map(countryDTO, CountryEntity.class);
+        CountryEntity country = modelMapper.map(countryDTO, CountryEntity.class);
         countryRepository.save(country);
     }
 }
